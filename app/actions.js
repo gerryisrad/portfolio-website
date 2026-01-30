@@ -148,6 +148,34 @@ export async function deleteProject(formData) {
     }
 }
 
+/**
+ * Upload resume PDF file
+ */
+export async function uploadResume(formData) {
+    const file = formData.get('file');
+
+    if (!file) return { error: 'No file provided' };
+
+    // Verify it's a PDF
+    if (file.type !== 'application/pdf') {
+        return { error: 'Only PDF files are allowed' };
+    }
+
+    const buffer = Buffer.from(await file.arrayBuffer());
+
+    // Save to content directory
+    const contentDir = path.join(process.cwd(), 'content');
+    await fs.mkdir(contentDir, { recursive: true });
+
+    const fileName = 'resume.pdf';
+    const filePath = path.join(contentDir, fileName);
+
+    await fs.writeFile(filePath, buffer);
+
+    // Return path for storing in about.json
+    return { success: true, path: '/content/resume.pdf' };
+}
+
 export async function saveAbout(data) {
     const aboutFile = path.join(process.cwd(), 'content', 'about.json');
 
@@ -162,5 +190,6 @@ export async function saveAbout(data) {
     await fs.writeFile(aboutFile, JSON.stringify(data, null, 4));
     revalidatePath('/about');
     revalidatePath('/admin/about');
+    revalidatePath('/resume');
     return { success: true };
 }

@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { saveAbout } from '@/app/actions';
+import { saveAbout, uploadResume } from '@/app/actions';
 import styles from './AboutEditor.module.css';
 
 export default function AboutEditor({ initialData }) {
     const [data, setData] = useState(initialData);
     const [status, setStatus] = useState('');
+    const [uploading, setUploading] = useState(false);
 
     const handleChange = (section, field, value) => {
         setData(prev => ({
@@ -16,6 +17,50 @@ export default function AboutEditor({ initialData }) {
                 [field]: value
             }
         }));
+    };
+
+    const handleResumeUpload = async (file) => {
+        if (!file) return;
+
+        if (file.type !== 'application/pdf') {
+            setStatus('Only PDF files allowed');
+            return;
+        }
+
+        setUploading(true);
+        setStatus('Uploading resume...');
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const result = await uploadResume(formData);
+
+        if (result.success) {
+            setData(prev => ({
+                ...prev,
+                basics: {
+                    ...prev.basics,
+                    resume: result.path
+                }
+            }));
+            setStatus('Resume uploaded! Don\'t forget to save.');
+        } else {
+            setStatus(result.error || 'Upload failed');
+        }
+
+        setUploading(false);
+        setTimeout(() => setStatus(''), 3000);
+    };
+
+    const handleResumeChange = (e) => {
+        const file = e.target.files?.[0];
+        if (file) handleResumeUpload(file);
+    };
+
+    const handleResumeDrop = (e) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files?.[0];
+        if (file) handleResumeUpload(file);
     };
 
     const handleArrayChange = (section, index, field, value) => {
@@ -93,6 +138,39 @@ export default function AboutEditor({ initialData }) {
                             value={data.basics.summary}
                             onChange={(e) => handleChange('basics', 'summary', e.target.value)}
                         />
+                    </label>
+                </div>
+            </section>
+
+            <section className={styles.section}>
+                <h2>Resume</h2>
+                <div
+                    className={styles.uploadArea}
+                    onDrop={handleResumeDrop}
+                    onDragOver={(e) => e.preventDefault()}
+                >
+                    <input
+                        type="file"
+                        accept="application/pdf"
+                        onChange={handleResumeChange}
+                        style={{ display: 'none' }}
+                        id="resume-upload"
+                        disabled={uploading}
+                    />
+                    <label htmlFor="resume-upload" className={styles.uploadLabel}>
+                        {uploading ? (
+                            <p>Uploading...</p>
+                        ) : data.basics.resume ? (
+                            <div>
+                                <p>✓ Resume uploaded</p>
+                                <a href={data.basics.resume} target="_blank" rel="noopener noreferrer" className={styles.viewLink}>
+                                    View Current Resume
+                                </a>
+                                <p className={styles.updateHint}>Click or drag to replace</p>
+                            </div>
+                        ) : (
+                            <p>Click or drag PDF to upload resume</p>
+                        )}
                     </label>
                 </div>
             </section>

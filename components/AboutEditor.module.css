@@ -131,3 +131,43 @@
     min-height: 100px;
     resize: vertical;
 }
+
+.uploadArea {
+    border: 2px dashed var(--border-subtle);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
+}
+
+.uploadArea:hover {
+    border-color: var(--color-primary);
+    background: rgba(59, 130, 246, 0.05);
+}
+
+.uploadLabel {
+    cursor: pointer;
+    display: block;
+}
+
+.uploadLabel p {
+    margin: 0.5rem 0;
+    color: var(--text-secondary);
+}
+
+.viewLink {
+    color: var(--color-primary);
+    text-decoration: none;
+    display: inline-block;
+    margin: 0.5rem 0;
+}
+
+.viewLink:hover {
+    text-decoration: underline;
+}
+
+.updateHint {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
