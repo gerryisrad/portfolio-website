@@ -14,38 +14,15 @@ Complete guide for deploying your portfolio on a Linux server via SSH.
 
 ## Part 1: GitHub Repository Setup
 
-### 1. Initialize Git (on your Windows machine)
+### Repository Information
 
-```powershell
-cd C:\Users\gerar\.gemini\antigravity\scratch\engineering-portfolio
+This project is hosted on GitHub as a **public repository**:
+- **Repository**: https://github.com/gerryisrad/portfolio-website
+- **No authentication required** for cloning
+- `.env.local` with credentials is excluded from Git (in `.gitignore`)
 
-# Initialize git if not already done
-git init
-
-# Add all files
-git add .
-
-# Create initial commit
-git commit -m "Initial commit: Engineering portfolio"
-```
-
-### 2. Create GitHub Repository
-
-1. Go to https://github.com/new
-2. Repository name: `engineering-portfolio` (or your choice)
-3. Description: "My engineering project portfolio"
-4. Choose **Public** or **Private**
-5. **Do NOT** initialize with README (you already have one)
-6. Click "Create repository"
-
-### 3. Push to GitHub
-
-```powershell
-# Replace YOUR_USERNAME with your GitHub username
-git remote add origin https://github.com/YOUR_USERNAME/engineering-portfolio.git
-git branch -M main
-git push -u origin main
-```
+> [!NOTE]
+> The repository is public to make deployment easier and showcase your engineering work. Your admin credentials in `.env.local` are never committed to Git.
 
 ---
 
@@ -65,8 +42,8 @@ ssh your-user@your-server-ip
 
 ```bash
 cd ~
-git clone https://github.com/YOUR_USERNAME/engineering-portfolio.git
-cd engineering-portfolio
+git clone https://github.com/gerryisrad/portfolio-website.git
+cd portfolio-website
 ```
 
 #### 3. Create environment file
@@ -114,8 +91,8 @@ If you prefer not to use Docker:
 ```bash
 ssh your-user@your-server-ip
 cd ~
-git clone https://github.com/YOUR_USERNAME/engineering-portfolio.git
-cd engineering-portfolio
+git clone https://github.com/gerryisrad/portfolio-website.git
+cd portfolio-website
 ```
 
 #### 2. Install dependencies
@@ -237,7 +214,7 @@ git push
 
 ### 2. On Linux server:
 ```bash
-cd ~/engineering-portfolio
+cd ~/portfolio-website
 git pull
 
 # For Docker:
@@ -320,9 +297,9 @@ kill -9 PID
 
 ### Permission denied errors
 ```bash
-# For uploads directory
-sudo chown -R $USER:$USER ~/engineering-portfolio/public/uploads
-chmod -R 755 ~/engineering-portfolio/public/uploads
+# For content directory
+sudo chown -R $USER:$USER ~/portfolio-website/content
+chmod -R 755 ~/portfolio-website/content
 ```
 
 ### Docker build fails
@@ -355,8 +332,8 @@ docker-compose up -d --build
 
 ### First-time setup:
 ```bash
-git clone https://github.com/YOUR_USERNAME/engineering-portfolio.git
-cd engineering-portfolio
+git clone https://github.com/gerryisrad/portfolio-website.git
+cd portfolio-website
 nano .env.local  # Add credentials
 docker-compose up -d  # Deploy
 ```

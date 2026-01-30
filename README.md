@@ -29,8 +29,8 @@ A modern, self-hosted portfolio website built with Next.js to showcase engineeri
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/YOUR_USERNAME/engineering-portfolio.git
-cd engineering-portfolio
+git clone https://github.com/gerryisrad/portfolio-website.git
+cd portfolio-website
 ```
 
 2. Install dependencies:
