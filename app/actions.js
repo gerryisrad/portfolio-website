@@ -176,6 +176,37 @@ export async function uploadResume(formData) {
     return { success: true, path: '/content/resume.pdf' };
 }
 
+/**
+ * Upload profile image
+ */
+export async function uploadProfileImage(formData) {
+    const file = formData.get('file');
+
+    if (!file) return { error: 'No file provided' };
+
+    // Verify it's an image
+    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+    if (!validTypes.includes(file.type)) {
+        return { error: 'Only JPG, PNG, and WebP images are allowed' };
+    }
+
+    const buffer = Buffer.from(await file.arrayBuffer());
+
+    // Save to content directory
+    const contentDir = path.join(process.cwd(), 'content');
+    await fs.mkdir(contentDir, { recursive: true });
+
+    // Get file extension
+    const ext = file.name.split('.').pop();
+    const fileName = `profile.${ext}`;
+    const filePath = path.join(contentDir, fileName);
+
+    await fs.writeFile(filePath, buffer);
+
+    // Return path for storing in about.json
+    return { success: true, path: `/content/${fileName}` };
+}
+
 export async function saveAbout(data) {
     const aboutFile = path.join(process.cwd(), 'content', 'about.json');
 

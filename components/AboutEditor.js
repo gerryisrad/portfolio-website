@@ -63,6 +63,53 @@ export default function AboutEditor({ initialData }) {
         if (file) handleResumeUpload(file);
     };
 
+    const handleImageUpload = async (file) => {
+        if (!file) return;
+
+        const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+        if (!validTypes.includes(file.type)) {
+            setStatus('Only JPG, PNG, and WebP images allowed');
+            return;
+        }
+
+        setUploading(true);
+        setStatus('Uploading image...');
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const { uploadProfileImage } = await import('@/app/actions');
+        const result = await uploadProfileImage(formData);
+
+        if (result.success) {
+            setData(prev => ({
+                ...prev,
+                basics: {
+                    ...prev.basics,
+                    image: result.path
+                }
+            }));
+            setStatus('Image uploaded! Don\'t forget to save.');
+        } else {
+            setStatus(result.error || 'Upload failed');
+        }
+
+        setUploading(false);
+        setTimeout(() => setStatus(''), 3000);
+    };
+
+    const handleImageChange = (e) => {
+        const file = e.target.files?.[0];
+        if (file) handleImageUpload(file);
+    };
+
+    const handleImageDrop = (e) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files?.[0];
+        if (file) handleImageUpload(file);
+    };
+
+
     const handleArrayChange = (section, index, field, value) => {
         const newArray = [...data[section]];
         newArray[index] = { ...newArray[index], [field]: value };
@@ -139,6 +186,36 @@ export default function AboutEditor({ initialData }) {
                             onChange={(e) => handleChange('basics', 'summary', e.target.value)}
                         />
                     </label>
+                </div>
+
+                <div className={styles.imageSection}>
+                    <h3>Profile Image</h3>
+                    <div
+                        className={styles.uploadArea}
+                        onDrop={handleImageDrop}
+                        onDragOver={(e) => e.preventDefault()}
+                    >
+                        <input
+                            type="file"
+                            accept="image/jpeg,image/jpg,image/png,image/webp"
+                            onChange={handleImageChange}
+                            style={{ display: 'none' }}
+                            id="image-upload"
+                            disabled={uploading}
+                        />
+                        <label htmlFor="image-upload" className={styles.uploadLabel}>
+                            {uploading ? (
+                                <p>Uploading...</p>
+                            ) : data.basics.image ? (
+                                <div className={styles.imagePreview}>
+                                    <img src={data.basics.image} alt="Profile" className={styles.previewImage} />
+                                    <p className={styles.updateHint}>Click or drag to replace</p>
+                                </div>
+                            ) : (
+                                <p>Click or drag image to upload (JPG, PNG, WebP)</p>
+                            )}
+                        </label>
+                    </div>
                 </div>
             </section>
 
