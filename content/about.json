@@ -1,22 +1,72 @@
 {
-    "name": "Your Name",
-    "tagline": "Engineering Student | Designer | Builder",
-    "bio": "Brief introduction about yourself. What are you passionate about? What drives your work in engineering?\n\nDescribe your background, interests, and what makes you unique as an engineer.",
-    "email": "your.email@example.com",
-    "linkedin": "https://linkedin.com/in/yourprofile",
-    "github": "https://github.com/yourusername",
-    "sections": [
+    "basics": {
+        "name": "Your Name",
+        "label": "Engineering Student | Designer | Builder",
+        "image": "",
+        "email": "your.email@example.com",
+        "summary": "Brief introduction about yourself. What are you passionate about? What drives your work in engineering?\n\nDescribe your background, interests, and what makes you unique as an engineer.",
+        "profiles": [
+            {
+                "network": "LinkedIn",
+                "url": "https://linkedin.com/in/yourprofile"
+            },
+            {
+                "network": "GitHub",
+                "url": "https://github.com/yourusername"
+            }
+        ]
+    },
+    "work": [
         {
-            "title": "Education",
-            "content": "**University Name**\nDegree in Engineering (Expected Graduation: Year)\n\n- Relevant coursework\n- Academic achievements\n- Student organizations"
+            "name": "Company Name",
+            "position": "Engineering Intern",
+            "startDate": "2023-06",
+            "endDate": "2023-08",
+            "summary": "Brief description of your role and responsibilities. What did you accomplish? What technologies did you use?"
+        }
+    ],
+    "education": [
+        {
+            "institution": "University Name",
+            "area": "Engineering",
+            "studyType": "Bachelor of Science",
+            "startDate": "2021",
+            "endDate": "2025",
+            "score": "3.8"
+        }
+    ],
+    "skills": [
+        {
+            "name": "CAD & Design",
+            "keywords": [
+                "SolidWorks",
+                "Fusion 360",
+                "AutoCAD"
+            ]
         },
         {
-            "title": "Skills & Expertise",
-            "content": "**Technical Skills:**\n- CAD & Design: SolidWorks, Fusion 360, AutoCAD\n- Manufacturing: 3D Printing, CNC Machining, Fabrication\n- Programming: Python, MATLAB, C++\n- Analysis: FEA, CFD, Simulation\n\n**Engineering Disciplines:**\n- Mechanical Design\n- Robotics & Automation\n- Product Development"
+            "name": "Manufacturing",
+            "keywords": [
+                "3D Printing",
+                "CNC Machining",
+                "Fabrication"
+            ]
         },
         {
-            "title": "Experience",
-            "content": "**Company Name** | Engineering Intern\n*Month Year - Month Year*\n- Responsibility or achievement\n- Responsibility or achievement\n- Responsibility or achievement\n\n**Organization Name** | Role\n*Month Year - Present*\n- Responsibility or achievement\n- Responsibility or achievement"
+            "name": "Programming",
+            "keywords": [
+                "Python",
+                "MATLAB",
+                "C++"
+            ]
+        },
+        {
+            "name": "Analysis",
+            "keywords": [
+                "FEA",
+                "CFD",
+                "Simulation"
+            ]
         }
     ]
 }
