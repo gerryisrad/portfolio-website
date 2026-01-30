@@ -1,0 +1,27 @@
+{
+  "title": "Robotic Subsystem Gripper, Titan Rover",
+  "description": "Designed and built a high-force worm-drive gripper for the Titan Rover to lift 10 lb from the floor. Used a NEMA 11 motor with a 5:1 gearbox and 35:1 worm reduction to achieve ~42 lb of tip force per side, validated with stress analysis and fabricated with SLA-printed Formlabs Rigid 4000 components and a low-friction nylon gear + brass worm pairing.",
+  "date": "2026-01-28",
+  "tags": [
+    "Robotics",
+    "Manufacturing",
+    "Mechanical Design"
+  ],
+  "skills": [
+    "SLA 3D Printing with Engineering Strength Materials",
+    "Worm Drive Development",
+    "Ansys Stress Analysis"
+  ],
+  "paper": "",
+  "videoId": "",
+  "mainImage": "/content/projects/robotic-arm-titan-rover/images/1769667195652-Screenshot2026-01-28221310.png",
+  "gallery": [
+    "/content/projects/robotic-arm-titan-rover/images/1769667384479-Screenshot2026-01-28221310.png",
+    "/content/projects/robotic-arm-titan-rover/images/1769667384500-Screenshot2026-01-28221536.png",
+    "/content/projects/robotic-arm-titan-rover/images/1769667384515-Screenshot2026-01-28221546.png",
+    "/content/projects/robotic-arm-titan-rover/images/1769667384533-Screenshot2026-01-28221552.png",
+    "/content/projects/robotic-arm-titan-rover/images/1769667384551-Screenshot2026-01-28221559.png",
+    "/content/projects/robotic-arm-titan-rover/images/1769667384606-Screenshot2026-01-28221605.png",
+    "/content/projects/robotic-arm-titan-rover/images/1769667384620-Screenshot2026-01-28221614.png"
+  ]
+}

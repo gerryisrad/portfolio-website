@@ -1,0 +1,32 @@
+.footer {
+    border-top: 1px solid var(--border-subtle);
+    padding: var(--spacing-lg) 0;
+    margin-top: var(--spacing-xl);
+    background: var(--bg-secondary);
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.copyright {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.socials {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.link {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    transition: color 0.2s ease;
+}
+
+.link:hover {
+    color: var(--text-primary);
+}

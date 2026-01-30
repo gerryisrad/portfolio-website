@@ -1,0 +1,25 @@
+{
+  "title": "Robotic Design: Titan Rover J3 Wrist (Pitch & Roll)",
+  "description": "Developed the J3 wrist to provide pitch and continuous roll for multi-axis manipulation (e.g., keyboards and joysticks). Integrated a 12-wire, 2A slip ring for infinite rotation, supported rotation with thrust bearings, and drove the joint with a NEMA 11 + 14:1 gearbox, iterating custom parts using both SLA (Form 2) and FDM (Ender 3 S1 Pro) printing.",
+  "date": "2026-01-29",
+  "tags": [
+    "Robotics",
+    "Manufacturing",
+    "Mechanical Design"
+  ],
+  "skills": [
+    "SLA 3D Printing with Engineering Strength Material",
+    "Electrical Routing",
+    "Motor Selection"
+  ],
+  "paper": "",
+  "videoId": "",
+  "mainImage": "/content/projects/titan-rover-wrist/images/1769667835982-Screenshot2026-01-28222345.png",
+  "gallery": [
+    "/content/projects/titan-rover-wrist/images/1769667910553-Screenshot2026-01-28222417.png",
+    "/content/projects/titan-rover-wrist/images/1769667910571-Screenshot2026-01-28222423.png",
+    "/content/projects/titan-rover-wrist/images/1769667910587-Screenshot2026-01-28222437.png",
+    "/content/projects/titan-rover-wrist/images/1769667910603-Screenshot2026-01-28222447.png",
+    "/content/projects/titan-rover-wrist/images/1769667910621-Screenshot2026-01-28222455.png"
+  ]
+}

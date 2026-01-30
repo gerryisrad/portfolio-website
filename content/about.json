@@ -1,0 +1,92 @@
+{
+    "basics": {
+        "name": "Gerardo Silvestre Gutierrez",
+        "label": "Mechanical Engineer and Tinkerer",
+        "image": "",
+        "summary": "I am a passionate engineer who thrives on tackling challenges creatively. I have a background in the computer hardware industry, with an emphasis on the design of datacenter liquid-cooling hardware. ",
+        "email": "email@example.com",
+        "phone": "",
+        "url": "",
+        "location": {
+            "address": "",
+            "postalCode": "",
+            "city": "",
+            "countryCode": "",
+            "region": ""
+        },
+        "profiles": [
+            {
+                "network": "LinkedIn",
+                "username": "",
+                "url": "https://linkedin.com"
+            },
+            {
+                "network": "GitHub",
+                "username": "",
+                "url": "https://github.com"
+            }
+        ]
+    },
+    "work": [
+        {
+            "name": "Swiftech",
+            "position": "Mechanical Engineer",
+            "url": "",
+            "startDate": "2023-08-01",
+            "endDate": "",
+            "summary": "- Designed/prototyped 5U liquid-cooled AI server; reduced thermals ~30% and increased compute density\n- Led DFM cost-down (die-cast-centric design); cut production costs ~20%\n- Owned R&D + validation for ~30 liquid-cooling components (SolidWorks CFD + thermal testing)\n- Built PDM/QC + assembly docs; improved file findability ~50% and streamlined manufacturer handoffs\n",
+            "highlights": []
+        },
+        {
+            "name": "Gutierrez Heating and Air Conditioning",
+            "position": "HVAC Apprentice",
+            "url": "",
+            "startDate": "2016-06-01",
+            "endDate": "2023-08-01",
+            "summary": "- Installed, repaired, and maintained HVAC/R systems to code and best practices\n\n- Coordinated permits/inspections with city departments to keep projects compliant and on schedule\n- Scheduled/managed third-party vendors (e.g., landscapers, crane operators) for smooth job-site execution\n",
+            "highlights": []
+        }
+    ],
+    "education": [
+        {
+            "institution": "California State University, Fullerton",
+            "area": "M.S. Mechanical Engineering (Heat Transfer and Fluid Mechanics)",
+            "studyType": "",
+            "startDate": "January 2024",
+            "endDate": "May 2026",
+            "score": "3.73/4.0"
+        },
+        {
+            "institution": "California State University, Fullerton",
+            "url": "",
+            "area": "B.S. Mechanical Engineering",
+            "studyType": "B.S.",
+            "startDate": "September 2019",
+            "endDate": "May 2023",
+            "score": "3.23/4.0",
+            "courses": [
+                "Thermodynamics",
+                "Control Systems"
+            ]
+        }
+    ],
+    "skills": [
+        {
+            "name": "Engineering",
+            "level": "",
+            "keywords": [
+                "SolidWorks",
+                "ANSYS",
+                "MATLAB",
+                "GD&T"
+            ]
+        },
+        {
+            "name": "Programming",
+            "level": "",
+            "keywords": [
+                "Python"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,222 @@
+.main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.article {
+    padding-top: 120px;
+    /* Space for fixed header */
+    flex: 1;
+}
+
+.header {
+    margin-bottom: var(--spacing-lg);
+    text-align: center;
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: var(--spacing-md);
+    line-height: 1.1;
+    background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.meta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--text-secondary);
+}
+
+.tags {
+    display: flex;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-sm);
+}
+
+.tag {
+    font-size: 0.85rem;
+    color: var(--text-accent);
+    background: rgba(59, 130, 246, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-weight: 500;
+}
+
+.layoutGrid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 4rem;
+    align-items: start;
+}
+
+@media (max-width: 1024px) {
+    .layoutGrid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+.mainContent {
+    min-width: 0;
+    /* Prevent grid blowout */
+}
+
+.sidebar {
+    position: sticky;
+    top: 100px;
+}
+
+.skillsCard {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-lg);
+}
+
+.paperButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-md);
+}
+
+.paperButton:hover {
+    border-color: var(--text-accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    background: rgba(59, 130, 246, 0.05);
+}
+
+.paperIcon {
+    font-size: 1.25rem;
+}
+
+.skillsTitle {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 0.5rem;
+}
+
+.skillsList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.skillItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.checkIcon {
+    color: var(--color-green);
+    font-weight: 900;
+}
+
+.content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-primary);
+    margin-top: 2rem;
+}
+
+.content h2 {
+    font-size: 1.8rem;
+    margin: var(--spacing-xl) 0 var(--spacing-md);
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: var(--spacing-sm);
+}
+
+.content h3 {
+    font-size: 1.4rem;
+    margin: var(--spacing-lg) 0 var(--spacing-sm);
+    color: var(--text-primary);
+}
+
+.content p {
+    margin-bottom: var(--spacing-md);
+    color: var(--text-secondary);
+}
+
+.content ul {
+    margin-bottom: var(--spacing-md);
+    padding-left: var(--spacing-lg);
+    color: var(--text-secondary);
+}
+
+.content li {
+    margin-bottom: var(--spacing-xs);
+}
+
+.content strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-size: 0.95rem;
+}
+
+.content th,
+.content td {
+    border: 1px solid var(--border-subtle);
+    padding: 0.75rem 1rem;
+    text-align: left;
+}
+
+.content th {
+    background: var(--bg-card);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.content td {
+    color: var(--text-secondary);
+}
+
+.content tr:nth-child(even) td {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.gallerySection {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.sectionTitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+}

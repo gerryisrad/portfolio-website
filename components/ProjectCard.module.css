@@ -1,0 +1,90 @@
+.card {
+    display: block;
+    background: var(--bg-card);
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.imageWrapper {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: var(--bg-secondary);
+    position: relative;
+    overflow: hidden;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, var(--bg-secondary), var(--bg-primary));
+}
+
+.content {
+    padding: var(--spacing-md);
+}
+
+.title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-primary);
+}
+
+.description {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: var(--spacing-md);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+}
+
+.tag {
+    font-size: 0.75rem;
+    color: #fff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-weight: 500;
+}
+
+.tag:nth-child(4n+1) {
+    background: var(--color-blue);
+}
+
+.tag:nth-child(4n+2) {
+    background: var(--color-red);
+}
+
+.tag:nth-child(4n+3) {
+    background: var(--color-yellow);
+    color: #18181b;
+}
+
+.tag:nth-child(4n+4) {
+    background: var(--color-green);
+    color: #18181b;
+}

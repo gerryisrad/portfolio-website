@@ -1,0 +1,85 @@
+version: '3.8'
+
+services:
+  portfolio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: portfolio-website
+    restart: unless-stopped
+    ports:
+      # Host:Container - Change left side to use different host port
+      - "3000:3000"
+
+    volumes:
+      # MEDIA MOUNTS - Easy access to project files from host machine
+      # Format: host_path:container_path
+      # You can change the left side to any path on your host machine
+
+      # All project content (organized by project)
+      # Each project folder contains:
+      #   - project.json (metadata: title, description, tags, etc.)
+      #   - description.md (markdown content for project page)
+      #   - images/ (all project images and media)
+      #
+      # Host path: ./content (in project directory)
+      # Access files at: /path/to/engineering-portfolio/content/projects/[project-slug]/
+      - ./content:/app/content
+      # EXAMPLE: Individual project structure after migration:
+      # content/projects/
+      #   robotic-arm-titan-rover/
+      #     ├── project.json         # Metadata
+      #     ├── description.md       # Markdown content
+      #     └── images/              # All project images
+      #         ├── main.jpg
+      #         ├── detail1.png
+      #         └── ...
+
+      # Optional: Mount to a different location on host
+      # Example: Store all content on a separate drive or NAS
+      # Uncomment and modify the path below:
+      # - /mnt/nas/portfolio-content:/app/content
+
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+
+    env_file:
+      # Admin credentials stored here
+      - .env.local
+
+    healthcheck:
+      test: [ "CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+# FILE ORGANIZATION GUIDE:
+#
+# After migration, each project has its own organized folder:
+#
+# content/projects/[project-slug]/
+#   ├── project.json      # All metadata (title, tags, skills, videos, etc.)
+#   ├── description.md    # Markdown content shown on project page
+#   └── images/           # All images for this project
+#       ├── image1.jpg
+#       ├── image2.png
+#       └── ...
+#
+# To access your project files from the host machine:
+#   cd ~/engineering-portfolio/content/projects/my-project-name/
+#   ls images/              # View all project images
+#   cat description.md      # Read markdown content
+#   cat project.json        # View metadata
+#
+# To backup a specific project:
+#   cp -r ./content/projects/my-project-name /path/to/backup/
+#
+# To backup all projects:
+#   cp -r ./content /path/to/backup/
+#
+# To mount to external storage (NAS, separate drive):
+#   1. Create mount point: mkdir -p /mnt/storage/portfolio-content
+#   2. Modify volume line: - /mnt/storage/portfolio-content:/app/content
+#   3. Ensure permissions: chmod -R 755 /mnt/storage/portfolio-content
