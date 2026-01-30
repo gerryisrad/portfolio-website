@@ -1,92 +1,22 @@
 {
-    "basics": {
-        "name": "Gerardo Silvestre Gutierrez",
-        "label": "Mechanical Engineer and Tinkerer",
-        "image": "",
-        "summary": "I am a passionate engineer who thrives on tackling challenges creatively. I have a background in the computer hardware industry, with an emphasis on the design of datacenter liquid-cooling hardware. ",
-        "email": "email@example.com",
-        "phone": "",
-        "url": "",
-        "location": {
-            "address": "",
-            "postalCode": "",
-            "city": "",
-            "countryCode": "",
-            "region": ""
-        },
-        "profiles": [
-            {
-                "network": "LinkedIn",
-                "username": "",
-                "url": "https://linkedin.com"
-            },
-            {
-                "network": "GitHub",
-                "username": "",
-                "url": "https://github.com"
-            }
-        ]
-    },
-    "work": [
+    "name": "Your Name",
+    "tagline": "Engineering Student | Designer | Builder",
+    "bio": "Brief introduction about yourself. What are you passionate about? What drives your work in engineering?\n\nDescribe your background, interests, and what makes you unique as an engineer.",
+    "email": "your.email@example.com",
+    "linkedin": "https://linkedin.com/in/yourprofile",
+    "github": "https://github.com/yourusername",
+    "sections": [
         {
-            "name": "Swiftech",
-            "position": "Mechanical Engineer",
-            "url": "",
-            "startDate": "2023-08-01",
-            "endDate": "",
-            "summary": "- Designed/prototyped 5U liquid-cooled AI server; reduced thermals ~30% and increased compute density\n- Led DFM cost-down (die-cast-centric design); cut production costs ~20%\n- Owned R&D + validation for ~30 liquid-cooling components (SolidWorks CFD + thermal testing)\n- Built PDM/QC + assembly docs; improved file findability ~50% and streamlined manufacturer handoffs\n",
-            "highlights": []
+            "title": "Education",
+            "content": "**University Name**\nDegree in Engineering (Expected Graduation: Year)\n\n- Relevant coursework\n- Academic achievements\n- Student organizations"
         },
         {
-            "name": "Gutierrez Heating and Air Conditioning",
-            "position": "HVAC Apprentice",
-            "url": "",
-            "startDate": "2016-06-01",
-            "endDate": "2023-08-01",
-            "summary": "- Installed, repaired, and maintained HVAC/R systems to code and best practices\n\n- Coordinated permits/inspections with city departments to keep projects compliant and on schedule\n- Scheduled/managed third-party vendors (e.g., landscapers, crane operators) for smooth job-site execution\n",
-            "highlights": []
-        }
-    ],
-    "education": [
-        {
-            "institution": "California State University, Fullerton",
-            "area": "M.S. Mechanical Engineering (Heat Transfer and Fluid Mechanics)",
-            "studyType": "",
-            "startDate": "January 2024",
-            "endDate": "May 2026",
-            "score": "3.73/4.0"
+            "title": "Skills & Expertise",
+            "content": "**Technical Skills:**\n- CAD & Design: SolidWorks, Fusion 360, AutoCAD\n- Manufacturing: 3D Printing, CNC Machining, Fabrication\n- Programming: Python, MATLAB, C++\n- Analysis: FEA, CFD, Simulation\n\n**Engineering Disciplines:**\n- Mechanical Design\n- Robotics & Automation\n- Product Development"
         },
         {
-            "institution": "California State University, Fullerton",
-            "url": "",
-            "area": "B.S. Mechanical Engineering",
-            "studyType": "B.S.",
-            "startDate": "September 2019",
-            "endDate": "May 2023",
-            "score": "3.23/4.0",
-            "courses": [
-                "Thermodynamics",
-                "Control Systems"
-            ]
-        }
-    ],
-    "skills": [
-        {
-            "name": "Engineering",
-            "level": "",
-            "keywords": [
-                "SolidWorks",
-                "ANSYS",
-                "MATLAB",
-                "GD&T"
-            ]
-        },
-        {
-            "name": "Programming",
-            "level": "",
-            "keywords": [
-                "Python"
-            ]
+            "title": "Experience",
+            "content": "**Company Name** | Engineering Intern\n*Month Year - Month Year*\n- Responsibility or achievement\n- Responsibility or achievement\n- Responsibility or achievement\n\n**Organization Name** | Role\n*Month Year - Present*\n- Responsibility or achievement\n- Responsibility or achievement"
         }
     ]
 }

@@ -1,0 +1,19 @@
+{
+    "title": "Sample Engineering Project",
+    "description": "This is a sample project to demonstrate the portfolio structure. Replace this with your own project details.",
+    "date": "2024-01-01",
+    "tags": [
+        "Engineering",
+        "Design",
+        "Development"
+    ],
+    "skills": [
+        "CAD Design",
+        "3D Printing",
+        "Programming"
+    ],
+    "paper": "",
+    "videoId": "",
+    "mainImage": "",
+    "gallery": []
+}
