@@ -91,4 +91,4 @@ MIT License - feel free to use this for your own portfolio!
 
 ## Author
 
-Gerard - Engineering Portfolio
+Gerardo Gutierrez
