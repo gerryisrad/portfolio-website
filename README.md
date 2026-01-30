@@ -57,7 +57,7 @@ See [DEPLOYMENT-LINUX.md](./DEPLOYMENT-LINUX.md) for detailed deployment instruc
 
 Quick start with Docker:
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ## Admin Panel

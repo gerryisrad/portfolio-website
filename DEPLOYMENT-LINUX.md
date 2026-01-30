@@ -64,13 +64,13 @@ Save with `Ctrl+X`, then `Y`, then `Enter`.
 
 ```bash
 # Build and start the container
-docker-compose up -d
+docker compose up -d
 
 # Check if it's running
-docker-compose ps
+docker compose ps
 
 # View logs
-docker-compose logs -f
+docker compose logs -f
 ```
 
 Your site is now running on port 3000!
@@ -167,20 +167,20 @@ pm2 save
 
 ```bash
 # View status
-docker-compose ps
+docker compose ps
 
 # View logs
-docker-compose logs -f portfolio
+docker compose logs -f portfolio
 
 # Restart
-docker-compose restart
+docker compose restart
 
 # Stop
-docker-compose down
+docker compose down
 
 # Update after code changes
 git pull
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 ### PM2 Commands
@@ -218,7 +218,7 @@ cd ~/portfolio-website
 git pull
 
 # For Docker:
-docker-compose up -d --build
+docker compose up -d --build
 
 # For PM2:
 ./deploy.sh
@@ -305,9 +305,9 @@ chmod -R 755 ~/portfolio-website/content
 ### Docker build fails
 ```bash
 # Clean up and rebuild
-docker-compose down
+docker compose down
 docker system prune -a
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 ### Can't access from outside
@@ -335,19 +335,19 @@ docker-compose up -d --build
 git clone https://github.com/gerryisrad/portfolio-website.git
 cd portfolio-website
 nano .env.local  # Add credentials
-docker-compose up -d  # Deploy
+docker compose up -d  # Deploy
 ```
 
 ### Updates:
 ```bash
 git pull
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 ### Check status:
 ```bash
-docker-compose ps
-docker-compose logs -f
+docker compose ps
+docker compose logs -f
 ```
 
 ---
