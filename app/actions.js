@@ -81,9 +81,6 @@ export async function uploadImage(formData) {
             slug
         });
 
-        const buffer = Buffer.from(await file.arrayBuffer());
-        console.log('[UPLOAD] Buffer created, size:', buffer.length);
-
         // Save to content/projects/[slug]/images/
         const projectDir = path.join(process.cwd(), 'content/projects', slug);
         const imagesDir = path.join(projectDir, 'images');
@@ -100,7 +97,12 @@ export async function uploadImage(formData) {
         const filePath = path.join(imagesDir, fileName);
 
         console.log('[UPLOAD] Writing to:', filePath);
+
+        // Stream the file instead of loading into memory
+        const bytes = await file.arrayBuffer();
+        const buffer = Buffer.from(bytes);
         await fs.writeFile(filePath, buffer);
+
         console.log('[UPLOAD] Success!');
 
         // Return path relative to content directory for serving
@@ -221,9 +223,9 @@ export async function uploadProfileImage(formData) {
             return { error: 'Only JPG, PNG, and WebP images are allowed' };
         }
 
-        console.log('[PROFILE UPLOAD] Creating buffer...');
-        const buffer = Buffer.from(await file.arrayBuffer());
-        console.log('[PROFILE UPLOAD] Buffer created, size:', buffer.length);
+        console.log('[PROFILE UPLOAD] Processing image...');
+        const bytes = await file.arrayBuffer();
+        const buffer = Buffer.from(bytes);
 
         // Save to content directory
         const contentDir = path.join(process.cwd(), 'content');

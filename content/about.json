@@ -2,7 +2,7 @@
     "basics": {
         "name": "Your Name",
         "label": "Engineering Student | Designer | Builder",
-        "image": "",
+        "image": "/content/profile.jpg",
         "resume": "/content/resume.pdf",
         "email": "your.email@example.com",
         "summary": "Brief introduction about yourself. What are you passionate about? What drives your work in engineering?\n\nDescribe your background, interests, and what makes you unique as an engineer.",
