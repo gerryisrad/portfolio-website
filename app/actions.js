@@ -67,26 +67,48 @@ import { revalidatePath } from 'next/cache';
  * Upload image to project's images folder
  */
 export async function uploadImage(formData) {
-    const file = formData.get('file');
-    const slug = formData.get('slug');
+    try {
+        const file = formData.get('file');
+        const slug = formData.get('slug');
 
-    if (!file || !slug) return { error: 'Missing file or slug' };
+        if (!file || !slug) return { error: 'Missing file or slug' };
 
-    const buffer = Buffer.from(await file.arrayBuffer());
+        // Log file info for debugging
+        console.log('[UPLOAD] Starting upload:', {
+            name: file.name,
+            type: file.type,
+            size: `${(file.size / 1024).toFixed(2)} KB`,
+            slug
+        });
 
-    // Save to content/projects/[slug]/images/
-    const projectDir = path.join(process.cwd(), 'content/projects', slug);
-    const imagesDir = path.join(projectDir, 'images');
+        const buffer = Buffer.from(await file.arrayBuffer());
+        console.log('[UPLOAD] Buffer created, size:', buffer.length);
 
-    await fs.mkdir(imagesDir, { recursive: true });
+        // Save to content/projects/[slug]/images/
+        const projectDir = path.join(process.cwd(), 'content/projects', slug);
+        const imagesDir = path.join(projectDir, 'images');
 
-    const fileName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '')}`;
-    const filePath = path.join(imagesDir, fileName);
+        await fs.mkdir(imagesDir, { recursive: true });
 
-    await fs.writeFile(filePath, buffer);
+        // Sanitize filename and ensure it's not empty
+        let sanitized = file.name.replace(/[^a-zA-Z0-9.-]/g, '');
+        if (!sanitized || sanitized.startsWith('.')) {
+            sanitized = `image.${file.name.split('.').pop() || 'png'}`;
+        }
 
-    // Return path relative to content directory for serving
-    return { success: true, path: `/content/projects/${slug}/images/${fileName}` };
+        const fileName = `${Date.now()}-${sanitized}`;
+        const filePath = path.join(imagesDir, fileName);
+
+        console.log('[UPLOAD] Writing to:', filePath);
+        await fs.writeFile(filePath, buffer);
+        console.log('[UPLOAD] Success!');
+
+        // Return path relative to content directory for serving
+        return { success: true, path: `/content/projects/${slug}/images/${fileName}` };
+    } catch (error) {
+        console.error('[UPLOAD ERROR]', error);
+        return { error: `Upload failed: ${error.message}` };
+    }
 }
 
 /**
@@ -180,31 +202,48 @@ export async function uploadResume(formData) {
  * Upload profile image
  */
 export async function uploadProfileImage(formData) {
-    const file = formData.get('file');
+    try {
+        const file = formData.get('file');
 
-    if (!file) return { error: 'No file provided' };
+        if (!file) return { error: 'No file provided' };
 
-    // Verify it's an image
-    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-    if (!validTypes.includes(file.type)) {
-        return { error: 'Only JPG, PNG, and WebP images are allowed' };
+        // Log file info for debugging
+        console.log('[PROFILE UPLOAD] Starting upload:', {
+            name: file.name,
+            type: file.type,
+            size: `${(file.size / 1024).toFixed(2)} KB`
+        });
+
+        // Verify it's an image
+        const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+        if (!validTypes.includes(file.type)) {
+            console.error('[PROFILE UPLOAD] Invalid type:', file.type);
+            return { error: 'Only JPG, PNG, and WebP images are allowed' };
+        }
+
+        console.log('[PROFILE UPLOAD] Creating buffer...');
+        const buffer = Buffer.from(await file.arrayBuffer());
+        console.log('[PROFILE UPLOAD] Buffer created, size:', buffer.length);
+
+        // Save to content directory
+        const contentDir = path.join(process.cwd(), 'content');
+        await fs.mkdir(contentDir, { recursive: true });
+
+        // Get file extension safely
+        const ext = file.name.split('.').pop() || 'png';
+        const fileName = `profile.${ext}`;
+        const filePath = path.join(contentDir, fileName);
+
+        console.log('[PROFILE UPLOAD] Writing to:', filePath);
+        await fs.writeFile(filePath, buffer);
+        console.log('[PROFILE UPLOAD] Success!');
+
+        // Return path for storing in about.json
+        return { success: true, path: `/content/${fileName}` };
+    } catch (error) {
+        console.error('[PROFILE UPLOAD ERROR]', error);
+        return { error: `Upload failed: ${error.message}` };
     }
-
-    const buffer = Buffer.from(await file.arrayBuffer());
-
-    // Save to content directory
-    const contentDir = path.join(process.cwd(), 'content');
-    await fs.mkdir(contentDir, { recursive: true });
-
-    // Get file extension
-    const ext = file.name.split('.').pop();
-    const fileName = `profile.${ext}`;
-    const filePath = path.join(contentDir, fileName);
-
-    await fs.writeFile(filePath, buffer);
-
-    // Return path for storing in about.json
-    return { success: true, path: `/content/${fileName}` };
 }
 
 export async function saveAbout(data) {
