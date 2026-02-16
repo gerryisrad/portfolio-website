@@ -2,6 +2,7 @@
 
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+import { put } from '@vercel/blob'
 
 import { register, verifyCredentials } from '@/lib/auth';
 
@@ -81,32 +82,33 @@ export async function uploadImage(formData) {
             slug
         });
 
-        // Save to content/projects/[slug]/images/
-        const projectDir = path.join(process.cwd(), 'content/projects', slug);
-        const imagesDir = path.join(projectDir, 'images');
+        // Validate file size (Vercel Blob limit is much higher, but we keep this for UX)
+        const MAX_SIZE = 4.5 * 1024 * 1024; // 4.5 MB
+        if (file.size > MAX_SIZE) {
+            return { error: 'File too large (max 4.5 MB)' };
+        }
 
-        await fs.mkdir(imagesDir, { recursive: true });
-
-        // Sanitize filename and ensure it's not empty
-        let sanitized = file.name.replace(/[^a-zA-Z0-9.-]/g, '');
+        // Sanitize filename
+        let sanitized = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
         if (!sanitized || sanitized.startsWith('.')) {
-            sanitized = `image.${file.name.split('.').pop() || 'png'}`;
+            sanitized = `file.${file.name.split('.').pop() || 'png'}`;
         }
 
         const fileName = `${Date.now()}-${sanitized}`;
-        const filePath = path.join(imagesDir, fileName);
+        const blobPath = `projects/${slug}/images/${fileName}`;
 
-        console.log('[UPLOAD] Writing to:', filePath);
+        console.log('[UPLOAD] Uploading to Blob:', blobPath);
 
-        // Stream the file instead of loading into memory
-        const bytes = await file.arrayBuffer();
-        const buffer = Buffer.from(bytes);
-        await fs.writeFile(filePath, buffer);
+        // Upload to Vercel Blob
+        const blob = await put(blobPath, file, {
+            access: 'public',
+            addRandomSuffix: false
+        });
 
-        console.log('[UPLOAD] Success!');
+        console.log('[UPLOAD] Success! Blob URL:', blob.url);
 
-        // Return path relative to content directory for serving
-        return { success: true, path: `/content/projects/${slug}/images/${fileName}` };
+        // Return blob URL
+        return { success: true, path: blob.url };
     } catch (error) {
         console.error('[UPLOAD ERROR]', error);
         return { error: `Upload failed: ${error.message}` };
@@ -148,11 +150,11 @@ export async function uploadCADFile(formData) {
             slug
         });
 
-        // Save to content/projects/[slug]/cad/
-        const projectDir = path.join(process.cwd(), 'content/projects', slug);
-        const cadDir = path.join(projectDir, 'cad');
-
-        await fs.mkdir(cadDir, { recursive: true });
+        // Validate file size
+        const MAX_SIZE = 4.5 * 1024 * 1024; // 4.5 MB
+        if (file.size > MAX_SIZE) {
+            return { error: 'File too large (max 4.5 MB)' };
+        }
 
         // Sanitize filename
         let sanitized = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
@@ -161,23 +163,24 @@ export async function uploadCADFile(formData) {
         }
 
         const uniqueFileName = `${Date.now()}-${sanitized}`;
-        const filePath = path.join(cadDir, uniqueFileName);
+        const blobPath = `projects/${slug}/cad/${uniqueFileName}`;
 
-        console.log('[CAD UPLOAD] Writing to:', filePath);
+        console.log('[CAD UPLOAD] Uploading to Blob:', blobPath);
 
-        // Write file
-        const bytes = await file.arrayBuffer();
-        const buffer = Buffer.from(bytes);
-        await fs.writeFile(filePath, buffer);
+        // Upload to Vercel Blob
+        const blob = await put(blobPath, file, {
+            access: 'public',
+            addRandomSuffix: false
+        });
 
-        console.log('[CAD UPLOAD] Success!');
+        console.log('[CAD UPLOAD] Success! Blob URL:', blob.url);
 
         // Return metadata
         return {
             success: true,
             file: {
                 name: file.name,
-                path: `/content/projects/${slug}/cad/${uniqueFileName}`,
+                path: blob.url,
                 size: file.size
             }
         };
