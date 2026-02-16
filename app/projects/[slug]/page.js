@@ -74,6 +74,42 @@ export default async function Project({ params }) {
                                 </div>
                             )}
 
+                            {project.cadFiles && project.cadFiles.length > 0 && (
+                                <div className={styles.cadCard}>
+                                    <h3 className={styles.cadTitle}>CAD Files & Technical Drawings</h3>
+                                    <div className={styles.cadList}>
+                                        {project.cadFiles.map((file, index) => {
+                                            const ext = file.name.split('.').pop().toLowerCase();
+                                            const icon = ext === 'pdf' ? '📄' :
+                                                ext.startsWith('sld') ? '🔧' :
+                                                    ext.startsWith('cat') ? '🔧' :
+                                                        ext === 'dwg' || ext === 'dxf' ? '📐' :
+                                                            ext === 'stl' ? '🖨️' : '📦';
+
+                                            return (
+                                                <a
+                                                    key={index}
+                                                    href={file.path}
+                                                    download
+                                                    className={styles.cadItem}
+                                                >
+                                                    <div className={styles.cadItemInfo}>
+                                                        <span className={styles.cadIcon}>{icon}</span>
+                                                        <div className={styles.cadDetails}>
+                                                            <span className={styles.cadName}>{file.name}</span>
+                                                            <span className={styles.cadSize}>
+                                                                {(file.size / 1024 / 1024).toFixed(2)} MB
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <span className={styles.downloadIcon}>⬇</span>
+                                                </a>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            )}
+
                             {project.gallery && project.gallery.length > 0 && (
                                 <div className={styles.gallerySection}>
                                     <h2 className={styles.sectionTitle}>Gallery</h2>
@@ -82,9 +118,9 @@ export default async function Project({ params }) {
                             )}
                         </aside>
                     </div>
-                </div>
-            </article>
+                </div >
+            </article >
             <Footer />
-        </div>
+        </div >
     );
 }

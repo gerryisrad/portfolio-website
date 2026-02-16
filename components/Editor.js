@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { saveProject, uploadImage } from '@/app/actions';
+import { saveProject, uploadImage, uploadCADFile } from '@/app/actions';
 import Gallery from './Gallery';
 import styles from './Editor.module.css';
 
@@ -16,7 +16,8 @@ export default function Editor({ project, slug }) {
         videoId: project.videoId || '',
         content: project.content || '',
         mainImage: project.mainImage || '',
-        gallery: project.gallery || []
+        gallery: project.gallery || [],
+        cadFiles: project.cadFiles || []
     });
     const [status, setStatus] = useState('');
 
@@ -35,7 +36,8 @@ export default function Editor({ project, slug }) {
             skills: formData.skills ? formData.skills.split(',').map(s => s.trim()).filter(Boolean) : [],
             paper: formData.paper,
             mainImage: formData.mainImage,
-            gallery: formData.gallery
+            gallery: formData.gallery,
+            cadFiles: formData.cadFiles
         };
 
         const result = await saveProject(slug, data);
@@ -100,6 +102,51 @@ export default function Editor({ project, slug }) {
         e.preventDefault();
         setIsDragging(false);
         processFiles(e.dataTransfer.files);
+    };
+
+    const handleCADUpload = async (files) => {
+        if (!files || files.length === 0) return;
+
+        setStatus('Uploading CAD files...');
+        const uploadedFiles = [];
+        let errors = 0;
+
+        for (const file of Array.from(files)) {
+            const data = new FormData();
+            data.append('file', file);
+            data.append('slug', slug);
+
+            const result = await uploadCADFile(data);
+            if (result.success) {
+                uploadedFiles.push(result.file);
+            } else {
+                errors++;
+                console.error('CAD upload failed:', result.error);
+            }
+        }
+
+        if (uploadedFiles.length > 0) {
+            setFormData(prev => ({
+                ...prev,
+                cadFiles: [...prev.cadFiles, ...uploadedFiles]
+            }));
+        }
+
+        if (errors > 0) {
+            setStatus(`Uploaded ${uploadedFiles.length} files. ${errors} failed.`);
+        } else {
+            setStatus('CAD files uploaded!');
+            setTimeout(() => setStatus(''), 2000);
+        }
+    };
+
+    const removeCADFile = (index) => {
+        setFormData(prev => ({
+            ...prev,
+            cadFiles: prev.cadFiles.filter((_, i) => i !== index)
+        }));
+        setStatus('File removed. Click Save to apply changes.');
+        setTimeout(() => setStatus(''), 2000);
     };
 
     return (
@@ -252,6 +299,56 @@ export default function Editor({ project, slug }) {
                     </p>
                 </div>
                 <Gallery images={formData.gallery} />
+            </div>
+
+            <div className={styles.cadSection}>
+                <h3>CAD Files & Technical Drawings</h3>
+                <p className={styles.sectionHint}>Upload STEP, SolidWorks, CATIA, DWG, PDF files to showcase your CAD skills</p>
+                <div
+                    className={`${styles.dropZone} ${isDragging ? styles.dragging : ''}`}
+                    onDragOver={handleDragOver}
+                    onDragLeave={handleDragLeave}
+                    onDrop={(e) => {
+                        e.preventDefault();
+                        setIsDragging(false);
+                        handleCADUpload(e.dataTransfer.files);
+                    }}
+                >
+                    <input
+                        type="file"
+                        onChange={(e) => handleCADUpload(e.target.files)}
+                        accept=".step,.stp,.sldprt,.sldasm,.slddrw,.catpart,.catproduct,.catdrawing,.dwg,.dxf,.pdf,.iges,.igs,.stl"
+                        multiple
+                        className={styles.fileInput}
+                    />
+                    <span className={styles.uploadIcon}>📐</span>
+                    <p className={styles.hint}>
+                        Drag & Drop CAD files here<br />
+                        <span style={{ fontSize: '0.8em', opacity: 0.7 }}>or click to browse</span>
+                    </p>
+                </div>
+
+                {formData.cadFiles.length > 0 && (
+                    <div className={styles.cadFileList}>
+                        {formData.cadFiles.map((file, index) => (
+                            <div key={index} className={styles.cadFileItem}>
+                                <div className={styles.cadFileInfo}>
+                                    <span className={styles.cadFileName}>📄 {file.name}</span>
+                                    <span className={styles.cadFileSize}>
+                                        {(file.size / 1024 / 1024).toFixed(2)} MB
+                                    </span>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => removeCADFile(index)}
+                                    className={styles.removeBtn}
+                                >
+                                    ✕
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );

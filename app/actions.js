@@ -114,6 +114,80 @@ export async function uploadImage(formData) {
 }
 
 /**
+ * Upload CAD file to project's cad folder
+ */
+export async function uploadCADFile(formData) {
+    try {
+        const file = formData.get('file');
+        const slug = formData.get('slug');
+
+        if (!file || !slug) return { error: 'Missing file or slug' };
+
+        // Validate CAD file types
+        const validExtensions = [
+            '.step', '.stp',                          // STEP
+            '.sldprt', '.sldasm', '.slddrw',         // SolidWorks
+            '.catpart', '.catproduct', '.catdrawing', // CATIA
+            '.dwg', '.dxf',                          // AutoCAD
+            '.pdf',                                   // PDF
+            '.iges', '.igs',                         // IGES
+            '.stl'                                    // STL
+        ];
+
+        const fileName = file.name.toLowerCase();
+        const isValid = validExtensions.some(ext => fileName.endsWith(ext));
+
+        if (!isValid) {
+            return { error: 'Invalid file type. Supported: STEP, SolidWorks, CATIA, DWG, DXF, PDF, IGES, STL' };
+        }
+
+        console.log('[CAD UPLOAD] Starting upload:', {
+            name: file.name,
+            type: file.type,
+            size: `${(file.size / 1024 / 1024).toFixed(2)} MB`,
+            slug
+        });
+
+        // Save to content/projects/[slug]/cad/
+        const projectDir = path.join(process.cwd(), 'content/projects', slug);
+        const cadDir = path.join(projectDir, 'cad');
+
+        await fs.mkdir(cadDir, { recursive: true });
+
+        // Sanitize filename
+        let sanitized = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+        if (!sanitized || sanitized.startsWith('.')) {
+            sanitized = `file.${file.name.split('.').pop() || 'step'}`;
+        }
+
+        const uniqueFileName = `${Date.now()}-${sanitized}`;
+        const filePath = path.join(cadDir, uniqueFileName);
+
+        console.log('[CAD UPLOAD] Writing to:', filePath);
+
+        // Write file
+        const bytes = await file.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+        await fs.writeFile(filePath, buffer);
+
+        console.log('[CAD UPLOAD] Success!');
+
+        // Return metadata
+        return {
+            success: true,
+            file: {
+                name: file.name,
+                path: `/content/projects/${slug}/cad/${uniqueFileName}`,
+                size: file.size
+            }
+        };
+    } catch (error) {
+        console.error('[CAD UPLOAD ERROR]', error);
+        return { error: `Upload failed: ${error.message}` };
+    }
+}
+
+/**
  * Save project to new folder structure
  */
 export async function saveProject(slug, data) {
@@ -138,7 +212,8 @@ export async function saveProject(slug, data) {
         paper: data.paper || '',
         videoId: data.videoId || '',
         mainImage: data.mainImage || '',
-        gallery: data.gallery || []
+        gallery: data.gallery || [],
+        cadFiles: data.cadFiles || []
     };
 
     const projectJsonPath = path.join(projectDir, 'project.json');

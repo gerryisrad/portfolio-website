@@ -11,14 +11,19 @@ content/
     ├── project-slug-1/
     │   ├── project.json      # Metadata (title, description, tags, skills, etc.)
     │   ├── description.md    # Markdown content displayed on project page
-    │   └── images/           # All images for this project
-    │       ├── image1.jpg
-    │       ├── image2.png
+    │   ├── images/           # All images for this project
+    │   │   ├── image1.jpg
+    │   │   ├── image2.png
+    │   │   └── ...
+    │   └── cad/              # CAD files and technical drawings
+    │       ├── assembly.step
+    │       ├── part.sldprt
     │       └── ...
     ├── project-slug-2/
     │   ├── project.json
     │   ├── description.md
-    │   └── images/
+    │   ├── images/
+    │   └── cad/
     └── ...
 ```
 
@@ -50,6 +55,18 @@ All images for the project. Images are referenced as:
 ```
 /content/projects/[slug]/images/filename.jpg
 ```
+
+### `cad/`
+CAD files and technical drawings for the project. Supported formats:
+- STEP (`.step`, `.stp`)
+- SolidWorks (`.sldprt`, `.sldasm`, `.slddrw`)
+- CATIA (`.catpart`, `.catproduct`, `.catdrawing`)
+- AutoCAD (`.dwg`, `.dxf`)
+- IGES (`.iges`, `.igs`)
+- STL (`.stl`)
+- PDF technical drawings (`.pdf`)
+
+Files are referenced in `project.json` and served via download links.
 
 ## Example: Creating a New Project
 

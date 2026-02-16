@@ -163,3 +163,98 @@
 .mainImageSection .dropZone {
     min-height: 200px;
 }
+
+/* CAD Files Section */
+.cadSection {
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 2rem;
+    margin-top: 2rem;
+}
+
+.cadSection h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.sectionHint {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+.cadFileList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.cadFileItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-secondary);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-subtle);
+    transition: all 0.2s ease;
+}
+
+.cadFileItem:hover {
+    border-color: var(--color-blue);
+    transform: translateX(4px);
+}
+
+.cadFileInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+}
+
+.cadFileName {
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.cadFileSize {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+}
+
+.removeBtn {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+}
+
+.removeBtn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.4);
+}
+
+.paperUpload {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.fileLink {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.fileLink a {
+    color: var(--color-blue);
+    text-decoration: none;
+}
+
+.fileLink a:hover {
+    text-decoration: underline;
+}

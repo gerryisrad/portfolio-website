@@ -1,0 +1,33 @@
+{
+  "title": "CATIA Projects",
+  "description": "",
+  "date": "2026-02-16",
+  "tags": [],
+  "skills": [],
+  "paper": "",
+  "videoId": "",
+  "mainImage": "",
+  "gallery": [],
+  "cadFiles": [
+    {
+      "name": "Ch5Exercise1.CATPart",
+      "path": "/content/projects/cool/cad/1771219059501-Ch5Exercise1.CATPart",
+      "size": 119159
+    },
+    {
+      "name": "Ch5Exercise2.CATPart",
+      "path": "/content/projects/cool/cad/1771219059600-Ch5Exercise2.CATPart",
+      "size": 194694
+    },
+    {
+      "name": "Ch5Exercise3.CATPart",
+      "path": "/content/projects/cool/cad/1771219059644-Ch5Exercise3.CATPart",
+      "size": 116068
+    },
+    {
+      "name": "Ch5Exercise4.CATPart",
+      "path": "/content/projects/cool/cad/1771219059670-Ch5Exercise4.CATPart",
+      "size": 177754
+    }
+  ]
+}

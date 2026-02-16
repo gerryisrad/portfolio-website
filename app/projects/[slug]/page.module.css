@@ -220,3 +220,79 @@
     margin-bottom: 2rem;
     color: var(--text-primary);
 }
+
+/* CAD Files Card */
+.cadCard {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 2rem;
+}
+
+.cadTitle {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 0.5rem;
+}
+
+.cadList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.cadItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem;
+    background: rgba(59, 130, 246, 0.05);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.cadItem:hover {
+    border-color: var(--text-accent);
+    background: rgba(59, 130, 246, 0.1);
+    transform: translateX(4px);
+}
+
+.cadItemInfo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+}
+
+.cadIcon {
+    font-size: 1.5rem;
+}
+
+.cadDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.cadName {
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.cadSize {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+}
+
+.downloadIcon {
+    font-size: 1.25rem;
+    color: var(--text-accent);
+}
