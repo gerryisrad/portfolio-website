@@ -342,7 +342,34 @@ export default function Editor({ project, slug }) {
                         <span style={{ fontSize: '0.8em', opacity: 0.7 }}>or click to browse</span>
                     </p>
                 </div>
-                <Gallery images={formData.gallery} />
+
+                {/* Gallery Image List with Delete Buttons */}
+                {formData.gallery.length > 0 && (
+                    <div className={styles.galleryImageList}>
+                        <h4>Uploaded Images ({formData.gallery.length})</h4>
+                        {formData.gallery.map((imagePath, index) => (
+                            <div key={index} className={styles.galleryImageItem}>
+                                <img src={imagePath} alt={`Gallery ${index + 1}`} className={styles.galleryThumbnail} />
+                                <span className={styles.imageName}>Image {index + 1}</span>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setFormData(prev => ({
+                                            ...prev,
+                                            gallery: prev.gallery.filter((_, i) => i !== index)
+                                        }));
+                                        setStatus('Image removed');
+                                        setTimeout(() => setStatus(''), 2000);
+                                    }}
+                                    className={styles.removeButton}
+                                    aria-label="Remove image"
+                                >
+                                    ✕
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
 
             <div className={styles.cadSection}>
