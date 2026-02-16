@@ -5,6 +5,9 @@ import { saveProject, uploadImage, uploadCADFile } from '@/app/actions';
 import Gallery from './Gallery';
 import styles from './Editor.module.css';
 
+// Vercel serverless function payload limit
+const MAX_FILE_SIZE = 4.5 * 1024 * 1024; // 4.5 MB in bytes
+
 export default function Editor({ project, slug }) {
     const [formData, setFormData] = useState({
         title: project.title || '',
@@ -51,6 +54,15 @@ export default function Editor({ project, slug }) {
 
     const processFiles = async (files) => {
         if (!files || files.length === 0) return;
+
+        // Check file sizes before uploading
+        const oversizedFiles = Array.from(files).filter(f => f.size > MAX_FILE_SIZE);
+        if (oversizedFiles.length > 0) {
+            const names = oversizedFiles.map(f => `${f.name} (${(f.size / 1024 / 1024).toFixed(1)} MB)`).join(', ');
+            setStatus(`❌ Files too large (max 4.5 MB): ${names}`);
+            setTimeout(() => setStatus(''), 5000);
+            return;
+        }
 
         setStatus('Uploading...');
         const uploadedPaths = [];
@@ -106,6 +118,15 @@ export default function Editor({ project, slug }) {
 
     const handleCADUpload = async (files) => {
         if (!files || files.length === 0) return;
+
+        // Check file sizes before uploading
+        const oversizedFiles = Array.from(files).filter(f => f.size > MAX_FILE_SIZE);
+        if (oversizedFiles.length > 0) {
+            const names = oversizedFiles.map(f => `${f.name} (${(f.size / 1024 / 1024).toFixed(1)} MB)`).join(', ');
+            setStatus(`❌ CAD files too large (max 4.5 MB): ${names}`);
+            setTimeout(() => setStatus(''), 5000);
+            return;
+        }
 
         setStatus('Uploading CAD files...');
         const uploadedFiles = [];
@@ -181,6 +202,14 @@ export default function Editor({ project, slug }) {
                             onChange={async (e) => {
                                 const file = e.target.files[0];
                                 if (!file) return;
+
+                                // Check file size
+                                if (file.size > MAX_FILE_SIZE) {
+                                    setStatus(`\u274c PDF too large: ${file.name} (${(file.size / 1024 / 1024).toFixed(1)} MB). Max: 4.5 MB`);
+                                    setTimeout(() => setStatus(''), 5000);
+                                    return;
+                                }
+
                                 setStatus('Uploading Paper...');
                                 const data = new FormData();
                                 data.append('file', file);
@@ -222,6 +251,13 @@ export default function Editor({ project, slug }) {
                                 const file = e.dataTransfer.files[0];
                                 if (!file) return;
 
+                                // Check file size
+                                if (file.size > MAX_FILE_SIZE) {
+                                    setStatus(`❌ Image too large: ${file.name} (${(file.size / 1024 / 1024).toFixed(1)} MB). Max: 4.5 MB`);
+                                    setTimeout(() => setStatus(''), 5000);
+                                    return;
+                                }
+
                                 setStatus('Uploading Main Image...');
                                 const data = new FormData();
                                 data.append('file', file);
@@ -240,6 +276,14 @@ export default function Editor({ project, slug }) {
                                 onChange={async (e) => {
                                     const file = e.target.files[0];
                                     if (!file) return;
+
+                                    // Check file size
+                                    if (file.size > MAX_FILE_SIZE) {
+                                        setStatus(`❌ Image too large: ${file.name} (${(file.size / 1024 / 1024).toFixed(1)} MB). Max: 4.5 MB`);
+                                        setTimeout(() => setStatus(''), 5000);
+                                        return;
+                                    }
+
                                     setStatus('Uploading Main Image...');
                                     const data = new FormData();
                                     data.append('file', file);
