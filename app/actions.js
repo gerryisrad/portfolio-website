@@ -191,41 +191,59 @@ export async function uploadCADFile(formData) {
 }
 
 /**
- * Save project to new folder structure
+ * Save project to Vercel Blob storage
  */
 export async function saveProject(slug, data) {
-    const projectDir = path.join(process.cwd(), 'content/projects', slug);
-    const imagesDir = path.join(projectDir, 'images');
+    try {
+        // Save description.md to Blob
+        const descBlob = await put(
+            `projects/${slug}/description.md`,
+            data.content || '',
+            {
+                access: 'public',
+                contentType: 'text/markdown',
+                addRandomSuffix: false
+            }
+        );
 
-    // Create directories
-    await fs.mkdir(projectDir, { recursive: true });
-    await fs.mkdir(imagesDir, { recursive: true });
+        console.log('[SAVE] Description saved:', descBlob.url);
 
-    // Save description.md (markdown content only)
-    const descriptionPath = path.join(projectDir, 'description.md');
-    await fs.writeFile(descriptionPath, data.content || '', 'utf-8');
+        // Prepare metadata
+        const metadata = {
+            title: data.title,
+            description: data.description,
+            date: data.date,
+            tags: data.tags || [],
+            skills: data.skills || [],
+            paper: data.paper || '',
+            videoId: data.videoId || '',
+            mainImage: data.mainImage || '',
+            gallery: data.gallery || [],
+            cadFiles: data.cadFiles || []
+        };
 
-    // Save project.json (metadata only)
-    const metadata = {
-        title: data.title,
-        description: data.description,
-        date: data.date,
-        tags: data.tags || [],
-        skills: data.skills || [],
-        paper: data.paper || '',
-        videoId: data.videoId || '',
-        mainImage: data.mainImage || '',
-        gallery: data.gallery || [],
-        cadFiles: data.cadFiles || []
-    };
+        // Save project.json to Blob
+        const jsonBlob = await put(
+            `projects/${slug}/project.json`,
+            JSON.stringify(metadata, null, 2),
+            {
+                access: 'public',
+                contentType: 'application/json',
+                addRandomSuffix: false
+            }
+        );
 
-    const projectJsonPath = path.join(projectDir, 'project.json');
-    await fs.writeFile(projectJsonPath, JSON.stringify(metadata, null, 2), 'utf-8');
+        console.log('[SAVE] Metadata saved:', jsonBlob.url);
 
-    revalidatePath(`/projects/${slug}`);
-    revalidatePath('/admin');
-    revalidatePath('/');
-    return { success: true };
+        revalidatePath(`/projects/${slug}`);
+        revalidatePath('/admin');
+        revalidatePath('/');
+
+        return { success: true };
+    } catch (error) {
+        console.error('[SAVE ERROR]', error);
+        return { error: `Save failed: ${error.message}` };
+    }
 }
 
 /**
